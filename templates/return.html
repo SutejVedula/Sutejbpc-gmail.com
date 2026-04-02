@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Return Book</h2>
+
+<form method="POST">
+    <select class="form-control mb-3" name="issue_id">
+        {% for book in issued_books %}
+        <option value="{{book[0]}}">
+            {{book[1]}} ({{book[2]}})
+        </option>
+        {% endfor %}
+    </select>
+
+    <button class="btn btn-info">Return</button>
+</form>
+
+{% endblock %}

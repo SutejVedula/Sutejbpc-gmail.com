@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Issue Book</h2>
+
+<form method="POST">
+    <select class="form-control mb-3" name="book_id">
+        {% for book in books %}
+        <option value="{{book[0]}}">{{book[1]}}</option>
+        {% endfor %}
+    </select>
+
+    <input class="form-control mb-3" name="borrower" placeholder="Borrower Name">
+
+    <button class="btn btn-warning">Issue</button>
+</form>
+
+{% endblock %}

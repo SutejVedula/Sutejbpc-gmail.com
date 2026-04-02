@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Report</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white;
+            font-family: Arial;
+        }
+
+        .container {
+            margin-top: 40px;
+        }
+
+        .card {
+            border-radius: 15px;
+            padding: 20px;
+            color: black;
+        }
+
+        .summary-box {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .total { background: #ffc107; }
+        .issued { background: #dc3545; color: white; }
+        .available { background: #28a745; color: white; }
+
+        .table {
+            background: white;
+            color: black;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .overdue-row {
+            background-color: #ffcccc !important;
+        }
+
+        .ontime-row {
+            background-color: #ccffcc !important;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .btn-home {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📊 Library Report</h1>
+
+    <a href="/" class="btn btn-light btn-home">⬅ Back to Home</a>
+
+    <!-- SUMMARY -->
+    <div class="row mb-4">
+        <div class="col">
+            <div class="summary-box total">Total Books<br>{{total}}</div>
+        </div>
+        <div class="col">
+            <div class="summary-box issued">Issued Books<br>{{issued}}</div>
+        </div>
+        <div class="col">
+            <div class="summary-box available">Available Books<br>{{available}}</div>
+        </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="card">
+
+        <h4>📚 Borrowed Books</h4>
+
+        <table class="table table-bordered mt-3">
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Borrower</th>
+                <th>Issue Date</th>
+                <th>Days</th>
+                <th>Fine (₹)</th>
+                <th>Status</th>
+            </tr>
+
+            {% for b in overdue %}
+            <tr class="{% if b.days > 7 %}overdue-row{% else %}ontime-row{% endif %}">
+                <td>{{b.title}}</td>
+                <td>{{b.author}}</td>
+                <td>{{b.borrower}}</td>
+                <td>{{b.issue_date}}</td>
+                <td>{{b.days}}</td>
+                <td>{{b.fine}}</td>
+                <td>
+                    {% if b.days > 7 %}
+                        <span class="badge bg-danger">Overdue</span>
+                    {% else %}
+                        <span class="badge bg-success">On Time</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>
